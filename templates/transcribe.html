@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TubeCrystal - Transcribe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="dark-mode">
+    <div class="background">
+        <div class="floating-crystal"></div>
+        <div class="floating-crystal"></div>
+        <div class="floating-crystal"></div>
+        <div class="floating-crystal"></div>
+        <div class="floating-crystal"></div>
+    </div>
+    <div class="container">
+        <label class="switch">
+            <input id="input" type="checkbox" checked="checked" onchange="toggleMode()" />
+            <span class="slider round">
+                <span class="sun-moon">
+                    <svg class="moon-dot" id="moon-dot-1" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" /></svg>
+                    <svg class="moon-dot" id="moon-dot-2" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" /></svg>
+                    <svg class="moon-dot" id="moon-dot-3" viewBox="0 0 3 3"><circle cx="1.5" cy="1.5" r="1.5" /></svg>
+                    <svg class="light-ray" id="light-ray-1" viewBox="0 0 43 43"><circle cx="21.5" cy="21.5" r="21.5" /></svg>
+                    <svg class="light-ray" id="light-ray-2" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" /></svg>
+                    <svg class="light-ray" id="light-ray-3" viewBox="0 0 60 60"><circle cx="30" cy="30" r="30" /></svg>
+                </span>
+                <span class="stars">
+                    <svg class="star" id="star-1" viewBox="0 0 20 20"><polygon points="10,2 12,8 18,8 13,12 15,18 10,15 5,18 7,12 2,8 8,8" /></svg>
+                    <svg class="star" id="star-2" viewBox="0 0 6 6"><polygon points="3,1 3.6,2.8 5.4,2.8 4,4 4.6,5.8 3,4.8 1.4,5.8 2,4 0.6,2.8 2.4,2.8" /></svg>
+                    <svg class="star" id="star-3" viewBox="0 0 12 12"><polygon points="6,2 7.2,5.6 10.8,5.6 8,8 9.2,11.6 6,9.6 2.8,11.6 4,8 1.2,5.6 4.8,5.6" /></svg>
+                    <svg class="star" id="star-4" viewBox="0 0 18 18"><polygon points="9,2 10.8,7.2 16.2,7.2 12,10.8 13.8,16.2 9,13.2 4.2,16.2 6,10.8 1.8,7.2 7.2,7.2" /></svg>
+                </span>
+                <svg class="cloud-light" id="cloud-1" viewBox="0 0 40 20"><path d="M30,12 a10,6 0 0,1 -10,4 a8,5 0 0,1 -8,-4 a6,4 0 0,1 -6,0 a6,4 0 0,1 4,-8 a10,6 0 0,1 20,8" /></svg>
+                <svg class="cloud-dark" id="cloud-2" viewBox="0 0 20 10"><path d="M15,6 a5,3 0 0,1 -5,2 a4,2.5 0 0,1 -4,-2 a3,2 0 0,1 -3,0 a3,2 0 0,1 2,-4 a5,3 0 0,1 10,4" /></svg>
+                <svg class="cloud-light" id="cloud-3" viewBox="0 0 30 15"><path d="M22.5,9 a7.5,4.5 0 0,1 -7.5,3 a6,3.75 0 0,1 -6,-3 a4.5,3 0 0,1 -4.5,0 a4.5,3 0 0,1 3,-6 a7.5,4.5 0 0,1 15,6" /></svg>
+                <svg class="cloud-dark" id="cloud-4" viewBox="0 0 40 20"><path d="M30,12 a10,6 0 0,1 -10,4 a8,5 0 0,1 -8,-4 a6,4 0 0,1 -6,0 a6,4 0 0,1 4,-8 a10,6 0 0,1 20,8" /></svg>
+                <svg class="cloud-light" id="cloud-5" viewBox="0 0 20 10"><path d="M15,6 a5,3 0 0,1 -5,2 a4,2.5 0 0,1 -4,-2 a3,2 0 0,1 -3,0 a3,2 0 0,1 2,-4 a5,3 0 0,1 10,4" /></svg>
+                <svg class="cloud-dark" id="cloud-6" viewBox="0 0 30 15"><path d="M22.5,9 a7.5,4.5 0 0,1 -7.5,3 a6,3.75 0 0,1 -6,-3 a4.5,3 0 0,1 -4.5,0 a4.5,3 0 0,1 3,-6 a7.5,4.5 0 0,1 15,6" /></svg>
+            </span>
+        </label>
+        <h1 class="title">TubeCrystal</h1>
+        <p class="slogan">Crystal-Clear YouTube Insights</p>
+        <div class="info-section">
+            <h2>Transcribe</h2>
+            <p>This feature generates a clean, structured transcription of the video's audio content.</p>
+            <p><strong>Suggestion:</strong> Use this to get accurate, readable text from video audio.</p>
+        </div>
+        <input type="text" id="youtubeLink" placeholder="Paste YouTube URL here" oninput="fetchVideoInfo()">
+        <span id="url-loading" class="loader" style="display: none;">Loading...</span>
+        <div id="thumbnail" class="thumbnail-container">
+            <img id="thumbnail-img" src="" alt="Video Thumbnail" style="display: none;">
+            <div id="video-title" class="video-title"></div>
+        </div>
+        <button class="crystal-btn" onclick="processVideo('transcribe')">Process</button>
+        <button class="crystal-btn refresh-btn" onclick="refreshPage()">Refresh</button>
+        <div id="processing" class="processing">
+            <div class="progress-bar"><div class="progress" id="progress"></div></div>
+            <span>Processing...</span>
+        </div>
+        <pre id="result" class="tab-content"></pre>
+        <button id="copy-btn" class="crystal-btn" style="display: none;" onclick="copyTranscription()">Copy Transcription</button>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

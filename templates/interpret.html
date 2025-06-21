@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TubeCrystal - Interpret</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="dark-mode">
+    <div class="background">
+        <div class="floating-crystal"></div>
+        <div class="floating-crystal"></div>
+        <div class="floating-crystal"></div>
+        <div class="floating-crystal"></div>
+        <div class="floating-crystal"></div>
+    </div>
+    <div class="container">
+        <button class="mode-toggle" onclick="toggleMode()">
+            <svg class="dark-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3C7.03 3 3 7.03 3 12C3 16.97 7.03 21 12 21C16.97 21 21 16.97 21 12C21 11.54 20.96 11.08 20.9 10.64C19.92 12.01 18.32 12.9 16.5 12.9C13.52 12.9 11.1 10.48 11.1 7.5C11.1 5.69 12 4.08 13.36 3.1C12.92 3.04 12.46 3 12 3Z" fill="#A62E2E"/>
+            </svg>
+            <svg class="light-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <circle cx="12" cy="12" r="5" fill="#4A2C2A"/>
+                <path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="#4A2C2A" stroke-width="2"/>
+            </svg>
+        </button>
+        <h1 class="title">TubeCrystal</h1>
+        <p class="slogan">Crystal-Clear YouTube Insights</p>
+        <div class="info-section">
+            <h2>Interpret</h2>
+            <p>This feature provides an interpretation of the video's audio content.</p>
+            <p><strong>Suggestion:</strong> Use this to understand the main themes or ideas.</p>
+        </div>
+        <input type="text" id="youtubeLink" placeholder="Paste YouTube URL here" oninput="fetchVideoInfo()">
+        <div id="thumbnail" class="thumbnail-container">
+            <img id="thumbnail-img" src="" alt="Video Thumbnail" style="display: none;">
+            <div id="video-title" class="video-title"></div>
+        </div>
+        <button class="crystal-btn" onclick="processVideo('interpret')">Process</button>
+        <div id="processing" class="processing">
+            <div class="progress-bar"><div class="progress" id="progress"></div></div>
+            <span>Processing...</span>
+        </div>
+        <div id="result" class="tab-content active"></div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
